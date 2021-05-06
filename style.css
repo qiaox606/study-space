@@ -15,7 +15,7 @@
 }
 
 body {
-  background:url(https://cdn.glitch.com/07d19b45-91e4-45ac-a0ea-3bf9ddae3af0%2Fad6e7ec01cb6abef4d59cfe6e3665cc2.gif?v=1620292927365);
+  background:url("study.gif");
   background-size: cover;
   background-position: center center;
   display: flex;
