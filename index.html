@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  
+    <title>Study Space</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="note.css" rel="stylesheet" type="text/css" />
+</head>
+  
+  <body>
+    
+    
+      <div class="currently-active">
+    <span>Number of people currently studying with you:</span><span id="active" class="people"></span>
+  </div>
+        
+     <section>
+    <div id="app">
+	</div>
+       <div class="select">
+	<button id="add" class="note-botton">+</button>
+       </div>
+    </section>
+   
+            <p><span class="break-timer">00:00</span></p>
+            
+            <form>
+              <input type="number" value="25" id="length2">
+                <label for="length2">minutes</label>
+            </form>
+            <p class="stack-sm">
+                <button class="start-break">start</button>
+                <button class="cancel-break">clear</button>
+               
+            </p>
+    
+   <audio id="beepAudio" src="https://cdn.glitch.com/07d19b45-91e4-45ac-a0ea-3bf9ddae3af0%2Falarm.mp3?v=1620305725107" preload="auto">
+    </audio>
+    
+    <script src="script.js"></script>
+    <script src="online.js"></script>
+    <script src="note.js"></script>
+</body>
+  
+  <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.20.2.js"></script>
+<script type="text/javascript">
+var active = document.getElementById('active');
+function setCurrentlyActiveUsers(numberOfUsers) {
+  active.innerText = numberOfUsers.toString();
+}
+setCurrentlyActiveUsers(1);
+var pubnub = new PubNub({
+    publishKey : 'pub-c-cb393bdd-d644-42d2-aa94-170bb2f1d9ff',
+    subscribeKey : 'sub-c-bb75aa3e-ae54-11eb-8772-0a8f76eab11b',
+    heartbeatInterval: 30
+});
+pubnub.addListener({
+  presence: function(presenceEvent) {
+    setCurrentlyActiveUsers(presenceEvent.occupancy);
+  }
+});
+pubnub.subscribe({ 
+  channels: ['myWebPage1'],
+  withPresence: true
+});
+</script>
+</html>
